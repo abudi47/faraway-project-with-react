@@ -20,9 +20,17 @@ function App() {
     console.log(id)
     setItems((items) => items.filter((item) => item.id !== id))
   }
+  function handleClear () {
+    const conf = window.confirm("Are you want delete all items .. ?")
+
+
+    if (conf) setItems([]);
+    
+  }
   function handlePacked(id){
     setItems((items) => (items.map(item => item.id === id ? {...item, packed:!item.packed} : item)))
     console.log(items)
+    
     
 
   }
@@ -30,8 +38,8 @@ function App() {
    <div className='app'>
     <Logo />
     <Form onAddItems = {handleAddItems}/>
-    <PackingList onDelete={handleDelete} onPacked={handlePacked} items = {items}/>
-    <Stats len={len}/>
+    <PackingList onDelete={handleDelete} onPacked={handlePacked} handleClear={handleClear} items = {items}/>
+    <Stats items={items}/>
    </div>
   )
 }
