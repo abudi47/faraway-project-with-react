@@ -10,17 +10,28 @@ import { useState } from 'react'
 
 function App() {
   const [items, setItems] = useState([]);
+  const len = items.length;
+  // const percPack = item.reduce((acc, r) => len / (acc+ ))
 
   function handleAddItems(item){
     setItems((items) => [...items,item])
   }
+  function handleDelete(id){
+    console.log(id)
+    setItems((items) => items.filter((item) => item.id !== id))
+  }
+  function handlePacked(id){
+    setItems((items) => (items.map(item => item.id === id ? {...item, packed:!item.packed} : item)))
+    console.log(items)
+    
 
+  }
   return (
    <div className='app'>
     <Logo />
     <Form onAddItems = {handleAddItems}/>
-    <PackingList items = {items}/>
-    <Stats />
+    <PackingList onDelete={handleDelete} onPacked={handlePacked} items = {items}/>
+    <Stats len={len}/>
    </div>
   )
 }
